@@ -1,6 +1,6 @@
 #include <stdio.h>
 #define MAXLINE 1000
-#define TAB_STOP 8     // A new tab every 8 columns
+#define TAB_WIDTH 8     // A tab spans 8 columns
 
 int gline(char line[], int lim) {  // the same getline() func as in the book
     int i, c;
@@ -27,15 +27,15 @@ void detab(char line[], int len) {
         return;
     }
     char trail[MAXLINE];
-    int ntab = 1; // which tab field are we in?
+    int tabN = 1; // which tab field are we in?
     for (int i=0; i<=MAXLINE; ++i) {
-        if (i>ntab*TAB_STOP-1)
-            ++ntab;
+        if (i>tabN*TAB_WIDTH-1)
+            ++tabN;
         if (line[i]=='\t') {
             copy(line, trail, i+1, 0);
-            for (int j=i; j<=TAB_STOP*ntab-1; ++j)
+            for (int j=i; j<=TAB_WIDTH*tabN-1; ++j)
                 line[j]=' '; // insert blanks until the current tab field is covered.
-            copy(trail, line, 0, TAB_STOP*ntab); // copy remaining chars from trail[] to line[]
+            copy(trail, line, 0, TAB_WIDTH*tabN); // copy remaining chars from trail[] to line[]
         }
     }
 }
