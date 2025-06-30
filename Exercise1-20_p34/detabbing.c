@@ -23,12 +23,9 @@ void copy(char from[], char to[], int FROMindx, int TOindx) {
 }
 
 void detab(char line[], int len) {  
-    if (len==1) { // handle empty lines 
-        return;
-    }
     char trail[MAXLINE];
     int tabN = 1; // which tab field are we in?
-    for (int i=0; i<=MAXLINE; ++i) {
+    for (int i=0; i<=MAXLINE && line[i]!='\n'; ++i) {
         if (i>tabN*TAB_WIDTH-1)
             ++tabN;
         if (line[i]=='\t') {
